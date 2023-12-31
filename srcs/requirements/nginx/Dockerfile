@@ -23,11 +23,11 @@ RUN openssl req -new \
 		-days 365 \
 		-nodes \
 		-subj "/C=FR/ST=Ile-de-France/L=Paris/O=42/CN=ple-stra/emailAddress=ple-stra@student.42.fr" \
-		-out /etc/nginx/tsl_certificate.pem \
-		-keyout /etc/nginx/tsl_certificate_key.pem \
+		-out /etc/nginx/tls_certificate.pem \
+		-keyout /etc/nginx/tls_certificate_key.pem \
 	&& chmod 400 \
-		/etc/nginx/tsl_certificate.pem \
-		/etc/nginx/tsl_certificate_key.pem
+		/etc/nginx/tls_certificate.pem \
+		/etc/nginx/tls_certificate_key.pem
 
 # Informs Docker that the container listens on the port 443.
 # This only serves as documentation for the end-user or Docker (or can be used
