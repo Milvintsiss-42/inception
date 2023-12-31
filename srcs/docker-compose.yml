@@ -1,0 +1,23 @@
+# Most used version of docker-compose.
+version: '3.0'
+
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: ./requirements/nginx
+      args:
+        # Use "DOMAIN_NAME" variable from .env file as "domain_name" ARG when
+        # building image.
+        # Possibles issues with this method here:
+        # https://docs.docker.com/compose/environment-variables/envvars-precedence/
+        domain_name: ${DOMAIN_NAME}
+    # Expose port 443 of the container to the port 443 of the host machine.
+    ports:
+      - '443:443'
+    # Always restart the container if it crash or stops for whatever reason.
+    # 'on-failure' will be more suitable for a container that execute a process
+    # that should terminate at a given time. Here we want our website to be
+    # available 100% of the time.
+    restart: always
+    

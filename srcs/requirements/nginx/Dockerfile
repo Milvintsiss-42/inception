@@ -2,7 +2,7 @@
 # bullseye = debian 11
 FROM debian:bullseye
 
-ARG DOMAIN_NAME
+ARG domain_name
 
 # Install nginx on the container.
 RUN apt-get update && \
@@ -11,8 +11,8 @@ RUN apt-get update && \
 # Copy Nginx configuration file to Docker image's filesystem.
 COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
 
-# Replaces "[DOMAIN_NAME]" by the value of $DOMAIN_NAME variable in nginx.conf .
-RUN sed -i "s/\[DOMAIN_NAME\]/$DOMAIN_NAME/" /etc/nginx/conf.d/nginx.conf
+# Replaces "[DOMAIN_NAME]" by the value of $domain_name variable in nginx.conf .
+RUN sed -i "s/\[DOMAIN_NAME\]/$domain_name/" /etc/nginx/conf.d/nginx.conf
 
 # Install openssl on the container.
 RUN apt-get install openssl
