@@ -35,5 +35,6 @@ RUN openssl req -new \
 EXPOSE 443
 
 # Launch Nginx as foreground service on the container, so Nginx won't stop
-# until it register an error or the container is stopped. 
-CMD [ "nginx", "-g", "daemon off;" ]
+# until it register an error or the container is stopped.
+ENTRYPOINT [ "nginx" ]
+CMD [ "-g", "daemon off;" ]
