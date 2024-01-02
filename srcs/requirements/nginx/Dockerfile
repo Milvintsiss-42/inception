@@ -17,17 +17,9 @@ RUN sed -i "s/\[DOMAIN_NAME\]/$domain_name/" /etc/nginx/conf.d/nginx.conf
 # Install openssl on the container.
 RUN apt-get install openssl
 
-# Create a new self-signed certificate & key and set them to read-only.
-RUN openssl req -new \
-		-newkey rsa:4096 -x509 -sha256 \
-		-days 365 \
-		-nodes \
-		-subj "/C=FR/ST=Ile-de-France/L=Paris/O=42/CN=ple-stra/emailAddress=ple-stra@student.42.fr" \
-		-out /etc/nginx/tls_certificate.pem \
-		-keyout /etc/nginx/tls_certificate_key.pem \
-	&& chmod 400 \
-		/etc/nginx/tls_certificate.pem \
-		/etc/nginx/tls_certificate_key.pem
+# Create a new self-signed certificate & key.
+COPY ./tools/create_tls_certificate.sh .
+RUN bash ./create_tls_certificate.sh
 
 # Informs Docker that the container listens on the port 443.
 # This only serves as documentation for the end-user or Docker (or can be used
