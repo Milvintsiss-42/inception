@@ -6,6 +6,7 @@ up:
 	docker compose ${CONFIG} up -d
 down:
 	docker compose ${CONFIG} down
+restart: down up
 
 build:
 	docker compose ${CONFIG} build
@@ -18,4 +19,4 @@ clean:
 fclean:
 	docker compose ${CONFIG} down -v --rmi all
 
-.PHONY: all up down build fresh_build clean fclean
+.PHONY: all up down restart build fresh_build clean fclean
