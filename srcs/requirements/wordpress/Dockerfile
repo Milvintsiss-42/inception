@@ -6,7 +6,8 @@ ARG WORDPRESS_ARCHIVE="wordpress-$WORDPRESS_VERSION-fr_FR.tar.gz"
 RUN apt-get update \
 	&& apt-get install -y \
 		wget \
-		php$PHP_VERSION-fpm
+		php$PHP_VERSION-fpm \
+		php-mysql
 
 COPY ./conf/php-fpm/www.conf /etc/php/$PHP_VERSION/fpm/pool.d/
 # Create a directory to host php sock-file
