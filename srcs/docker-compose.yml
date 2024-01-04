@@ -6,6 +6,9 @@ version: '3.0'
 services:
   nginx:
     container_name: nginx
+    depends_on:
+      - wordpress
+      - mariadb
     build:
       context: ./requirements/nginx
       args:
@@ -33,6 +36,8 @@ services:
     init: true
   wordpress:
     container_name: wordpress
+    depends_on:
+      - mariadb
     build:
       context: ./requirements/wordpress
     env_file:
@@ -41,11 +46,28 @@ services:
       - wordpress_files:/var/www/html
     networks:
       - bridge_net
+    expose:
+      - 9000
+    restart: always
+    init: true
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/lib/mysql
+    networks:
+      - bridge_net
+    expose:
+      - 3306
     restart: always
     init: true
 
 volumes:
   wordpress_files:
+  wordpress_data:
 
 networks:
   bridge_net:
