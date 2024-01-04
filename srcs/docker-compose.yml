@@ -17,9 +17,36 @@ services:
     # Expose port 443 of the container to the port 443 of the host machine.
     ports:
       - '443:443'
+    # Volumes allow containers to share a persistant directory that can also be
+    # accessed from host machine.
+    volumes:
+      - wordpress_files:/var/www/html
+    networks:
+      - bridge_net
     # Always restart the container if it crash or stops for whatever reason.
     # 'on-failure' will be more suitable for a container that execute a process
     # that should terminate at a given time. Here we want our website to be
     # available 100% of the time.
     restart: always
-    
+    # Launch the container with Tini as PID 1.
+    # See https://github.com/krallin/tini
+    init: true
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements/wordpress
+    env_file:
+      - .env
+    volumes:
+      - wordpress_files:/var/www/html
+    networks:
+      - bridge_net
+    restart: always
+    init: true
+
+volumes:
+  wordpress_files:
+
+networks:
+  bridge_net:
+    driver: bridge
