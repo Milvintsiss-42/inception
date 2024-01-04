@@ -4,18 +4,17 @@ FROM debian:bullseye
 
 ARG domain_name
 
-# Install nginx on the container.
-RUN apt-get update && \
-	apt-get install -y nginx
+# Install nginx and openssl on the container.
+RUN apt-get update \
+	&& apt-get install -y \
+		nginx \
+		openssl
 
 # Copy Nginx configuration file to Docker image's filesystem.
 COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
 
 # Replaces "[DOMAIN_NAME]" by the value of $domain_name variable in nginx.conf .
 RUN sed -i "s/\[DOMAIN_NAME\]/$domain_name/" /etc/nginx/conf.d/nginx.conf
-
-# Install openssl on the container.
-RUN apt-get install openssl
 
 # Create a new self-signed certificate & key.
 COPY ./tools/create_tls_certificate.sh .
