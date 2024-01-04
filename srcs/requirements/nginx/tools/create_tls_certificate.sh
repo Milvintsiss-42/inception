@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 C="FR"
 ST="Ile-de-France"
