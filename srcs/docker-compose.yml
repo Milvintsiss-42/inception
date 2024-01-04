@@ -1,3 +1,5 @@
+name: 'inception'
+
 # Most used version of docker-compose.
 version: '3.0'
 
