@@ -7,7 +7,7 @@ RUN apt-get update \
 	&& apt-get install -y \
 		wget \
 		php$PHP_VERSION-fpm \
-		php-mysql
+		php$PHP_VERSION-mysql
 
 COPY ./conf/php-fpm/www.conf /etc/php/$PHP_VERSION/fpm/pool.d/
 # Create a directory to host php sock-file
