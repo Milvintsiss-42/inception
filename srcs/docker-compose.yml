@@ -70,13 +70,13 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/ple-stra/data/wp_files
+      device: /home/${USER}/data/wp_files
       o: bind
   wordpress_data:
     driver: local
     driver_opts:
       type: none
-      device: /home/ple-stra/data/wp_data
+      device: /home/${USER}/data/wp_data
       o: bind
 
 networks:

@@ -3,8 +3,8 @@ CONFIG	= -f ./srcs/docker-compose.yml
 all: up
 
 up:
-	@mkdir -p /home/ple-stra/data/wp_files
-	@mkdir -p /home/ple-stra/data/wp_data
+	@mkdir -p /home/$(USER)/data/wp_files
+	@mkdir -p /home/$(USER)/data/wp_data
 	docker compose ${CONFIG} up -d
 down:
 	docker compose ${CONFIG} down
