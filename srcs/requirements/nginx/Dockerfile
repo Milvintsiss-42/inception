@@ -21,7 +21,7 @@ COPY ./conf /etc/nginx/conf.d/
 RUN sed -i "s/\[DOMAIN_NAME\]/$domain_name/" /etc/nginx/conf.d/nginx.conf
 
 # Copy the static website files to the Docker image's filesystem.
-COPY ./static_website /static_website
+COPY ./static_website /var/www/html/bebours
 
 # Informs Docker that the container listens on the port 443.
 # This only serves as documentation for the end-user or Docker (or can be used
