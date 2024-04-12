@@ -10,15 +10,18 @@ RUN apt-get update \
 		nginx \
 		openssl
 
+# Create a new self-signed certificate & key.
+COPY ./tools/create_tls_certificate.sh .
+RUN bash ./create_tls_certificate.sh
+
 # Copy Nginx configuration file to Docker image's filesystem.
-COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
+COPY ./conf /etc/nginx/conf.d/
 
 # Replaces "[DOMAIN_NAME]" by the value of $domain_name variable in nginx.conf .
 RUN sed -i "s/\[DOMAIN_NAME\]/$domain_name/" /etc/nginx/conf.d/nginx.conf
 
-# Create a new self-signed certificate & key.
-COPY ./tools/create_tls_certificate.sh .
-RUN bash ./create_tls_certificate.sh
+# Copy the static website files to the Docker image's filesystem.
+COPY ./static_website /static_website
 
 # Informs Docker that the container listens on the port 443.
 # This only serves as documentation for the end-user or Docker (or can be used

@@ -1,6 +1,7 @@
 #!/bin/sh
 
-cd /var/www/html
+mkdir -p /var/www/html/wordpress
+cd /var/www/html/wordpress
 if [ ! -f "wp-config.php" ]; then
 	echo "Installing WordPress on container..."
 
