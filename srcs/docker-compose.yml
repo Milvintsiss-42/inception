@@ -118,6 +118,14 @@ services:
       - bridge_net
     restart: always
     init: true
+  redis:
+    container_name: redis
+    build:
+      context: ./requirements/bonus/redis
+    networks:
+      - bridge_net
+    restart: always
+    init: true
 
 volumes:
   wordpress_files:
