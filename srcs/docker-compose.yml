@@ -103,6 +103,21 @@ services:
       - bridge_net
     restart: always
     init: true
+  cadvisor:
+    container_name: cadvisor
+    build:
+      context: ./requirements/bonus/cadvisor
+    ports:
+      - '8080:8080'
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - bridge_net
+    restart: always
+    init: true
 
 volumes:
   wordpress_files:
