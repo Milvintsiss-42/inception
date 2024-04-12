@@ -8,6 +8,7 @@ services:
     container_name: nginx
     depends_on:
       - wordpress
+      - adminer
       - mariadb
     build:
       context: ./requirements/nginx
@@ -24,6 +25,7 @@ services:
     # accessed from host machine.
     volumes:
       - wordpress_files:/var/www/html/wordpress
+      - adminer_files:/var/www/html/adminer
     networks:
       - bridge_net
     # Always restart the container if it crash or stops for whatever reason.
@@ -44,6 +46,22 @@ services:
       - .env
     volumes:
       - wordpress_files:/var/www/html/wordpress
+    networks:
+      - bridge_net
+    expose:
+      - 9000
+    restart: always
+    init: true
+  adminer:
+    container_name: adminer
+    depends_on:
+      - mariadb
+    build:
+      context: ./requirements/bonus/adminer
+    env_file:
+      - .env
+    volumes:
+      - adminer_files:/var/www/html/adminer
     networks:
       - bridge_net
     expose:
@@ -98,6 +116,12 @@ volumes:
     driver_opts:
       type: none
       device: /home/${USER}/data/wp_data
+      o: bind
+  adminer_files:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/${USER}/data/adminer_files
       o: bind
 
 networks:

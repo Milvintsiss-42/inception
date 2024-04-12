@@ -4,6 +4,7 @@ all: up
 
 up:
 	@mkdir -p /home/$(USER)/data/wp_files
+	@mkdir -p /home/$(USER)/data/adminer_files
 	@mkdir -p /home/$(USER)/data/wp_data
 	docker compose ${CONFIG} up -d
 down:
