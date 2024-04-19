@@ -8,4 +8,4 @@ If you finished your Inception project and want to know about other possible res
 
 ---
 
-Project finished with 100%.
+Project finished with 125%.
